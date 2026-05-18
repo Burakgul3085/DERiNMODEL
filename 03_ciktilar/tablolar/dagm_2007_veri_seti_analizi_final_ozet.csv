@@ -1,0 +1,11 @@
+kontrol,sonuc
+Kullanılan class sayısı,6 class kullanıldı: Class1-Class6
+Sınıflandırma türü,Binary classification: kusurlu / kusursuz
+Toplam görsel sayısı,6900
+Kusursuz görsel sayısı,6000
+Kusurlu görsel sayısı,900
+Train görsel sayısı,3450
+Test görsel sayısı,3450
+Train-Test birebir aynı MD5 hash sayısı,0
+Hamming mesafesi 0 olan test örneği sayısı,921
+Genel değerlendirme,Birebir dosya sızıntısı yoktur; ancak train-test arasında yüksek görsel benzerlik riski vardır.

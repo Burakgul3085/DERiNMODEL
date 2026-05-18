@@ -1,0 +1,4 @@
+veri_bolumu,kusurlu,kusursuz,toplam
+train,357,2403,2760
+validation,89,601,690
+test,454,2996,3450

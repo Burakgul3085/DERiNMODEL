@@ -1,0 +1,150 @@
+
+DAGM 2007 OPTİK KUSUR TESPİTİ - DETAYLI MODEL ÖZETLERİ
+
+1. PROJEDE KULLANILAN MODEL YAKLAŞIMLARI
+
+Bu projede DAGM 2007 veri seti üzerinde kusurlu / kusursuz sınıflandırma problemi ele alınmıştır.
+Çalışmada hem sıfırdan eğitilen CNN modelleri hem de transfer learning yaklaşımı kullanılmıştır.
+
+Deneylerde toplam dört temel model yaklaşımı denenmiştir:
+
+1. Kendi CNN Model 1 - Regularized CNN
+2. Kendi CNN Model 2 - Balanced Batch CNN
+3. Kendi CNN Model 3 - Focal Loss CNN
+4. EfficientNetB0 Transfer Learning
+
+Veri setinde sınıf dengesizliği bulunduğu için yalnızca accuracy metriği yeterli görülmemiştir.
+Bu nedenle özellikle kusurlu sınıfa ait precision, recall ve F1-score değerleri değerlendirmede dikkate alınmıştır.
+
+
+2. KENDİ CNN MODEL 1 - REGULARIZED CNN
+
+Bu model sıfırdan oluşturulan temel CNN mimarisidir.
+Modelde Conv2D, BatchNormalization, MaxPooling2D, Dropout, GlobalAveragePooling2D ve Dense katmanları kullanılmıştır.
+
+Kullanılan temel yöntemler:
+- Rescaling ile normalizasyon
+- Data augmentation
+- L2 regularization
+- Dropout
+- Batch normalization
+- Class weight
+- Early stopping
+- ReduceLROnPlateau
+
+Test sonuçları:
+- Accuracy: 0.8661
+- Kusurlu Precision: 0.4718
+- Kusurlu Recall: 0.1476
+- Kusurlu F1-score: 0.2248
+
+Yorum:
+Bu model genel accuracy açısından kabul edilebilir görünse de kusurlu sınıfı yakalama başarısı düşüktür.
+Kusurlu recall değerinin 0.1476 olması, modelin kusurlu görüntülerin büyük kısmını kusursuz olarak sınıflandırdığını göstermektedir.
+Bu nedenle endüstriyel kusur tespiti açısından yeterli değildir.
+
+
+3. KENDİ CNN MODEL 2 - BALANCED BATCH CNN
+
+Bu modelde eğitim sırasında sınıf dengesizliğinin etkisini azaltmak amacıyla balanced batch stratejisi kullanılmıştır.
+Amaç, eğitim batchleri içerisinde kusurlu ve kusursuz örneklerin daha dengeli temsil edilmesini sağlamaktır.
+
+Test sonuçları:
+- Accuracy: 0.8843
+- Kusurlu Precision: 0.8985
+- Kusurlu Recall: 0.1366
+- Kusurlu F1-score: 0.2371
+
+Yorum:
+Bu modelde precision değeri yüksek çıkmıştır. Yani model bir görüntüye kusurlu dediğinde çoğunlukla doğru karar vermektedir.
+Ancak recall değeri çok düşük kalmıştır. Bu durum modelin gerçek kusurlu örneklerin büyük kısmını kaçırdığını gösterir.
+Dolayısıyla kusur tespiti probleminde tek başına yeterli bir model değildir.
+
+
+4. KENDİ CNN MODEL 3 - FOCAL LOSS CNN
+
+Üçüncü kendi CNN modelinde kusurlu sınıfa daha fazla odaklanmak amacıyla Focal Loss kullanılmıştır.
+Ayrıca görüntü boyutu 256x256 olarak kullanılmıştır. Bu sayede modelin kusur detaylarını daha iyi öğrenmesi hedeflenmiştir.
+
+Seçilen threshold:
+- 0.40
+
+Test sonuçları:
+- Accuracy: 0.4939
+- Kusurlu Precision: 0.1670
+- Kusurlu Recall: 0.7137
+- Kusurlu F1-score: 0.2707
+
+Yorum:
+Focal Loss yaklaşımı kusurlu sınıf recall değerini artırmıştır.
+Bu model kusurlu örnekleri daha fazla yakalamıştır; ancak bunun karşılığında yanlış pozitif sayısı çok yükselmiştir.
+Yani çok sayıda kusursuz görüntü yanlışlıkla kusurlu olarak işaretlenmiştir.
+Bu nedenle model dengeli bir sonuç üretmemiştir.
+
+
+5. EFFICIENTNETB0 TRANSFER LEARNING MODELİ
+
+Final aşamada ImageNet üzerinde önceden eğitilmiş EfficientNetB0 modeli transfer learning yaklaşımıyla kullanılmıştır.
+Bu modelde EfficientNetB0 gövdesi feature extractor olarak kullanılmış, üzerine sınıflandırma katmanları eklenmiştir.
+
+Kullanılan yöntemler:
+- ImageNet ön eğitimli EfficientNetB0
+- Transfer learning
+- Frozen base model
+- Data augmentation
+- Class weight
+- Dropout
+- Batch normalization
+- Threshold analizi
+
+Seçilen threshold:
+- 0.60
+
+Final test sonuçları:
+- Accuracy: 0.8986
+- Kusurlu Precision: 0.6221
+- Kusurlu Recall: 0.5837
+- Kusurlu F1-score: 0.6023
+
+Confusion Matrix:
+Gerçek Kusursuz - Tahmin Kusursuz: 2835
+Gerçek Kusursuz - Tahmin Kusurlu: 161
+Gerçek Kusurlu - Tahmin Kusursuz: 189
+Gerçek Kusurlu - Tahmin Kusurlu: 265
+
+Yorum:
+EfficientNetB0 modeli, kendi CNN modellerine göre daha dengeli sonuç vermiştir.
+Kusurlu precision, kusurlu recall ve kusurlu F1-score açısından en başarılı model olmuştur.
+Threshold 0.60 seçildiğinde yanlış alarm sayısı azaltılmış ve F1-score dengeli hale getirilmiştir.
+
+
+6. MODEL KARŞILAŞTIRMA YORUMU
+
+Kendi CNN Model 1 ve Model 2 yüksek accuracy değerleri üretmiş olsa da kusurlu sınıf recall değerleri düşük kalmıştır.
+Bu durum accuracy değerinin sınıf dengesizliği olan veri setlerinde tek başına yeterli olmadığını göstermektedir.
+
+Focal Loss kullanılan üçüncü model kusurlu recall değerini artırmıştır.
+Ancak yanlış alarm sayısı çok yükseldiği için precision ve accuracy değerleri düşmüştür.
+
+EfficientNetB0 Transfer Learning modeli ise accuracy, precision, recall ve F1-score arasında en dengeli sonucu üretmiştir.
+Bu nedenle final model olarak EfficientNetB0 seçilmiştir.
+
+
+7. FİNAL KARAR
+
+Bu çalışmada final model olarak EfficientNetB0 Transfer Learning modeli seçilmiştir.
+
+Final seçilen model:
+EfficientNetB0 Transfer Learning
+
+Seçilen threshold:
+0.60
+
+Final performans:
+Accuracy: 0.8986
+Kusurlu Precision: 0.6221
+Kusurlu Recall: 0.5837
+Kusurlu F1-score: 0.6023
+
+Sonuç olarak EfficientNetB0 modeli, DAGM 2007 veri setinde kusurlu / kusursuz sınıflandırma problemi için
+denenen modeller arasında en dengeli ve en başarılı sonucu vermiştir.

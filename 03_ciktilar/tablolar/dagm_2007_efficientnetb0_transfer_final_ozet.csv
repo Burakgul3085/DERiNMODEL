@@ -1,0 +1,2 @@
+model,egitim_stratejisi,image_size,selected_threshold,test_accuracy,kusurlu_precision,kusurlu_recall,kusurlu_f1,true_negative,false_positive,false_negative,true_positive,yorum
+EfficientNetB0 Transfer Learning,"ImageNet ağırlıkları, frozen base model, class_weight, data augmentation",224x224,0.6,0.898551,0.622066,0.5837,0.602273,2835,161,189,265,Kendi CNN modellerine göre daha dengeli ve başarılı sonuç verdi.

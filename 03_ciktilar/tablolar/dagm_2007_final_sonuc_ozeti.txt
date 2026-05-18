@@ -1,0 +1,33 @@
+
+DAGM 2007 Optik Kusur Tespiti Projesi - Final Model Değerlendirmesi
+
+Bu projede DAGM 2007 veri seti kullanılarak kusurlu / kusursuz binary classification problemi ele alınmıştır.
+Veri setinde Class1-Class6 arası 6 sınıf kullanılmıştır. Label klasörlerinde maske dosyası bulunan görseller kusurlu,
+label dosyası bulunmayan görseller kusursuz olarak etiketlenmiştir.
+
+Hazır Train/Test ayrımı korunmuştur. Validation seti yalnızca Train verisi içinden ayrılmıştır.
+Böylece veri sızıntısı önlenmiştir.
+
+Deneylerde üç farklı kendi CNN modeli ve bir transfer learning modeli denenmiştir.
+
+En başarılı model:
+EfficientNetB0 Transfer Learning
+
+Seçilen threshold:
+0.60
+
+Final test sonuçları:
+Accuracy: 0.8986
+Kusurlu Precision: 0.6221
+Kusurlu Recall: 0.5837
+Kusurlu F1-score: 0.6023
+
+Confusion Matrix:
+[[2835, 161],
+ [189, 265]]
+
+Yorum:
+EfficientNetB0 modeli kendi CNN modellerine göre daha dengeli sonuç vermiştir.
+Kusurlu sınıfta hem precision hem recall değerleri daha dengeli hale gelmiştir.
+Threshold 0.60 seçildiğinde yanlış pozitif sayısı azalmış, F1-score yükselmiştir.
+Bu nedenle final model olarak EfficientNetB0 Transfer Learning modeli seçilmiştir.

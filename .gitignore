@@ -1,0 +1,21 @@
+﻿# Büyük veri setleri GitHub'a yüklenmesin
+01_veri_seti/ham_veri/
+01_veri_seti/islenmis_veri/
+01_veri_seti/orijinal_indirilen_veri/
+
+# Jupyter / Colab geçici dosyaları
+.ipynb_checkpoints/
+**/.ipynb_checkpoints/
+
+# Python geçici dosyaları
+__pycache__/
+*.pyc
+
+# Sistem dosyaları
+.DS_Store
+Thumbs.db
+
+# Büyük sıkıştırılmış dosyalar
+*.zip
+*.rar
+*.7z

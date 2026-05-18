@@ -1,0 +1,4 @@
+model,strateji,threshold,accuracy,kusurlu_precision,kusurlu_recall,kusurlu_f1,yorum
+Model 1 - Regularized CNN,"128x128, class_weight, L2, Dropout, EarlyStopping",0.5,0.8661,0.4718,0.1476,0.2248,Accuracy yüksek görünse de kusurlu sınıfı büyük oranda kaçırdı.
+Model 2 - Balanced CNN,"128x128, dengeli batch/sampling, threshold analizi",0.5,0.8843,0.8985,0.1366,0.2371,Precision yüksek fakat kusurlu recall çok düşük kaldı.
+Model 3 - Focal Loss CNN,"256x256, focal loss, PR-AUC takibi, threshold 0.40",0.4,0.4939,0.167,0.7137,0.2707,Kusurlu yakalama başarısı belirgin arttı; yanlış pozitif sayısı yüksektir.

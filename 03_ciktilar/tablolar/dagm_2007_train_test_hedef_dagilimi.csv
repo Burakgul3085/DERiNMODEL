@@ -1,0 +1,3 @@
+split,kusurlu,kusursuz,toplam,kusurlu_oran,kusursuz_oran
+Test,454,2996,3450,13.16,86.84
+Train,446,3004,3450,12.93,87.07

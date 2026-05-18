@@ -1,0 +1,14 @@
+kontrol,sonuc
+Kullanılan sınıflar,Class1-Class6
+Sınıflandırma tipi,Binary classification: kusurlu / kusursuz
+Train görsel sayısı,2760
+Validation görsel sayısı,690
+Test görsel sayısı,3450
+Train kusurlu / kusursuz,357 / 2403
+Validation kusurlu / kusursuz,89 / 601
+Test kusurlu / kusursuz,454 / 2996
+Hazır test seti korundu mu?,"Evet, orijinal Test bölümü test seti olarak ayrıldı"
+Validation nasıl oluşturuldu?,Sadece orijinal Train verisi içinden ayrıldı
+Etiketleme yöntemi,"Label klasöründe maske dosyası olan görseller kusurlu, olmayanlar kusursuz kabul edildi"
+Veri sızıntısı önlemi,Test verisi eğitim ve validation içine dahil edilmedi
+Model için klasör yapısı,train / validation / test altında kusurlu ve kusursuz klasörleri oluşturuldu
